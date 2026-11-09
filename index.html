@@ -168,6 +168,9 @@
     <button id="clearBtn" class="btn">Clear</button>
     <button id="readBtn" class="btn primary">Read</button>
   </div>
+  <div class="row">
+    <button id="sampleBtn" class="btn">Try a sample: what is RSVP?</button>
+  </div>
   <p id="msg" class="msg" role="status"></p>
 
   <div class="card">
@@ -567,6 +570,33 @@
       $('input').focus();
       setMsg('Long-press the box and choose Paste.', true);
     }
+  });
+  const SAMPLE = `Welcome to Rapid Serial Visual Presentation, usually shortened to RSVP. You are using it right now.
+
+Instead of moving your eyes along a line of text, the words come to you. Each one appears in the same place, one after another, at a steady pace. Keep your gaze on the red letter and let the sentence build itself in your mind.
+
+Why does this help? When you read a page normally, your eyes do not glide smoothly. They jump from point to point in quick movements called saccades, pausing briefly on each word or group of words. Every jump costs a little time, and every return to an earlier line costs a little more. RSVP removes most of that movement, so your attention can stay on the meaning.
+
+The red letter marks what is sometimes called the optimal recognition point. It sits slightly left of the middle of each word, which is roughly where your eye would naturally land. Because the red letter never moves, you never have to search for the next word. Short words, long words, and even extraordinarily unpronounceable ones all line up around the same spot.
+
+The idea is not new. Psychologists began using rapid sequences of pictures and words in the late 1960s and 1970s to study how quickly the mind can take in what it sees. Decades later, the same technique reappeared in reading apps designed for small screens, where a full page of text is awkward to scroll.
+
+There is a trade-off, and it is worth knowing. When you read a page, you can glance back to check a phrase you missed. With RSVP, the words keep coming. If you go too fast, comprehension drops, especially for dense or unfamiliar material. So treat speed as a dial, not a target.
+
+A few tips to get the most from it:
+
+Start slowly, perhaps at 250 to 300 words per minute, and increase the speed only when it feels comfortable.
+
+Notice the pauses. The reader lingers at commas, waits longer at full stops, and takes a breath between paragraphs.
+
+Tap the screen whenever you need to stop. You will see the surrounding text, and you can tap any word to jump back to it.
+
+Use it for material you want to get through, such as articles, reports, and long documents, rather than writing you want to savour line by line.
+
+That is all there is to it. Paste in something of your own, or share it from another app, and see how far you can go.`;
+  $('sampleBtn').addEventListener('click', () => {
+    $('input').value = SAMPLE;
+    if (loadDoc(SAMPLE, 0)) { setMsg(''); openReader(); }
   });
   $('clearBtn').addEventListener('click', () => { $('input').value = ''; setMsg(''); $('input').focus(); });
   $('input').addEventListener('input', () => {
