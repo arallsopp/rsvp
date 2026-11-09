@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
 <title>RSVP Reader</title>
 <meta name="description" content="Read long text one word at a time with a fixation point.">
 <meta name="theme-color" content="#000000">
@@ -27,7 +27,7 @@
     --safe-t: env(safe-area-inset-top, 0px);
     --safe-b: env(safe-area-inset-bottom, 0px);
   }
-  * { box-sizing: border-box; }
+  * { box-sizing: border-box; touch-action: manipulation; }
   html, body { margin: 0; height: 100%; background: var(--bg); color: var(--fg); }
   body {
     font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, sans-serif;
@@ -62,7 +62,7 @@
   textarea {
     width: 100%; min-height: 180px; resize: vertical;
     background: #0b0b0b; color: var(--fg); border: 1px solid var(--line); border-radius: 12px;
-    padding: 12px; font: 16px/1.4 inherit; font-family: inherit;
+    padding: 12px; font-family: inherit; font-size: 16px; line-height: 1.4;
   }
   textarea:focus { outline: 1px solid #444; }
   .row { display: flex; gap: 10px; align-items: center; }
@@ -645,6 +645,9 @@ That is all there is to it. Paste in something of your own, or share it from ano
   });
   window.addEventListener('resize', () => { if (!$('reader').hidden) renderWord(); });
   window.addEventListener('pagehide', persist);
+  // Belt and braces against iOS double-tap and pinch zoom.
+  document.addEventListener('dblclick', (e) => e.preventDefault(), { passive: false });
+  document.addEventListener('gesturestart', (e) => e.preventDefault(), { passive: false });
 
   // ---------- Entry: text from URL or Shortcut ----------
   function handleIncoming() {
